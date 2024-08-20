@@ -41,7 +41,7 @@
                         <td>{{ $item->description }}</td>
                         <td>
                             @if ($item->image)
-                                <img src="{{ asset('/storage/' . $item->image) }}" alt="{{ $item->name }}"
+                                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}"
                                     style="width: 100px;">
                             @endif
                         </td>
