@@ -20,7 +20,7 @@
 
         <form action="{{ route('items.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="input-group mb-3 item-row">
+            <div class="input-group mb-3 item-row" id="input-fields-container">
                 <input type="text" class="form-control" name="inputs[0][name]" placeholder="Name" required>
                 <input type="text" class="form-control" name="inputs[0][description]" placeholder="Description"
                     required>
