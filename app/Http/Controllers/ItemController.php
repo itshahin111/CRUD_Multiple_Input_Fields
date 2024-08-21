@@ -36,22 +36,22 @@ class ItemController extends Controller
         ]);
 
         // Iterate through the inputs and store each item
-        foreach ($request->inputs as $input) {
+        foreach ($request->name as $key => $input) {
             $imagePath = null;
 
             // Handle image upload if present
-            if (isset($input['image']) && $input['image']->isValid()) {
-                $imageName = time() . '-' . uniqid() . '.' . $input['image']->getClientOriginalExtension();
-                $imagePath = $input['image']->storeAs('public/images', $imageName);
+            if (isset($request->image[$key]) && $request->image[$key]->isValid()) {
+                $imageName = time() . '-' . uniqid() . '.' . $request->image[$key]->getClientOriginalExtension();
+                $imagePath = $request->image[$key]->storeAs('public/images', $imageName);
                 $imagePath = str_replace('public/', '', $imagePath);
             }
 
             // Create a new item record
             Item::create([
-                'name' => $input['name'],
-                'description' => $input['description'],
+                'name' => $request->name[$key],
+                'description' => $request->description[$key],
                 'image' => $imagePath,
-                'quantity' => $input['quantity'],
+                'quantity' => $request->quantity[$key],
             ]);
         }
 

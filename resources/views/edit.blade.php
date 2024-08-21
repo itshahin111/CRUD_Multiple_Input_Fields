@@ -50,7 +50,7 @@
                 <label for="image" class="form-label">Image</label>
                 <input type="file" class="form-control" id="image" name="image" accept="image/*">
                 @if ($item->image)
-                    <img src="{{ asset('storage/images/' . $item->image) }}" alt="{{ $item->name }}"
+                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}"
                         style="width: 100px; margin-top: 10px;">
                 @endif
             </div>

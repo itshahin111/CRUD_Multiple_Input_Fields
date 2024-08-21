@@ -21,12 +21,10 @@
             @csrf
             <div id="input-fields-container">
                 <div class="input-group mb-3 item-row">
-                    <input type="text" class="form-control" name="inputs[0][name]" placeholder="Name" required>
-                    <input type="text" class="form-control" name="inputs[0][description]" placeholder="Description"
-                        required>
-                    <input type="file" class="form-control" name="inputs[0][image]" accept="image/*">
-                    <input type="number" class="form-control" name="inputs[0][quantity]" placeholder="Quantity"
-                        min="0">
+                    <input type="text" class="form-control" name="name[]" placeholder="Name" required>
+                    <input type="text" class="form-control" name="description[]" placeholder="Description" required>
+                    <input type="file" class="form-control" name="image[]" accept="image/*">
+                    <input type="number" class="form-control" name="quantity[]" placeholder="Quantity" min="0">
                     <button type="button" class="btn btn-danger remove-item-row">Remove</button>
                 </div>
             </div>
@@ -49,10 +47,10 @@
             const row = document.createElement('div');
             row.className = 'input-group mb-3 item-row';
             row.innerHTML = `
-        <input type="text" class="form-control" name="inputs[${index}][name]" placeholder="Name" required>
-        <input type="text" class="form-control" name="inputs[${index}][description]" placeholder="Description" required>
-        <input type="file" class="form-control" name="inputs[${index}][image]" accept="image/*">
-        <input type="number" class="form-control" name="inputs[${index}][quantity]" placeholder="Quantity" min="0">
+        <input type="text" class="form-control" name="name[]" placeholder="Name" required>
+        <input type="text" class="form-control" name="description[]" placeholder="Description" required>
+        <input type="file" class="form-control" name="image[]" accept="image/*">
+        <input type="number" class="form-control" name="quantity[]" placeholder="Quantity" min="0">
         <button type="button" class="btn btn-danger remove-item-row">Remove</button>
     `;
             container.appendChild(row);
