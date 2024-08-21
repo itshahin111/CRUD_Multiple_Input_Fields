@@ -23,7 +23,8 @@
                 <p><strong>Quantity:</strong> {{ $item->quantity }}</p>
                 @if ($item->image)
                     <p><strong>Image:</strong></p>
-                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" style="width: 200px;">
+                    <img src="{{ asset('storage/images/' . $item->image) }}" alt="{{ $item->name }}"
+                        style="width: 200px;">
                 @endif
             </div>
         </div>

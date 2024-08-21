@@ -16,11 +16,9 @@ class ItemController extends Controller
         $items = Item::all();
         return view('index', compact('items'));
     }
-    // app/Http/Controllers/ItemController.php
 
     public function create()
     {
-        // Return the view to create a new item
         return view('create');
     }
 
@@ -29,6 +27,7 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
+        // Validate the request data
         $request->validate([
             'inputs.*.name' => 'required|string|max:255',
             'inputs.*.description' => 'required|string|max:255',
@@ -36,14 +35,18 @@ class ItemController extends Controller
             'inputs.*.quantity' => 'nullable|integer|min:0'
         ]);
 
+        // Iterate through the inputs and store each item
         foreach ($request->inputs as $input) {
             $imagePath = null;
+
+            // Handle image upload if present
             if (isset($input['image']) && $input['image']->isValid()) {
-                $imageName = time() . '-' . $input['name'] . '.' . $input['image']->getClientOriginalExtension();
+                $imageName = time() . '-' . uniqid() . '.' . $input['image']->getClientOriginalExtension();
                 $imagePath = $input['image']->storeAs('public/images', $imageName);
                 $imagePath = str_replace('public/', '', $imagePath);
             }
 
+            // Create a new item record
             Item::create([
                 'name' => $input['name'],
                 'description' => $input['description'],
@@ -55,8 +58,10 @@ class ItemController extends Controller
         return redirect()->route('items.index')->with('success', 'Items added successfully!');
     }
 
+
     public function update(Request $request, Item $item)
     {
+        // Validate the request data
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
@@ -65,12 +70,15 @@ class ItemController extends Controller
         ]);
 
         $imagePath = $item->image;
+
+        // Handle image upload if present
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $imageName = time() . '-' . $request->name . '.' . $request->image->getClientOriginalExtension();
             $imagePath = $request->image->storeAs('public/images', $imageName);
             $imagePath = str_replace('public/', '', $imagePath);
         }
 
+        // Update the item record
         $item->update([
             'name' => $request->name,
             'description' => $request->description,
@@ -80,7 +88,6 @@ class ItemController extends Controller
 
         return redirect()->route('items.show', $item->id)->with('success', 'Item updated successfully!');
     }
-
 
 
     /**
@@ -105,7 +112,6 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        // Delete image from storage if exists
         if ($item->image) {
             Storage::disk('public')->delete($item->image);
         }
